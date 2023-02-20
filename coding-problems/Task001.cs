@@ -17,7 +17,7 @@ public class Task001
         { 
             for (int y = 0; y < m_inputListOne.Count; y++)
             {
-                // In the 2D array, we don't want to check the same values twice (nor itself), so pass. 
+                // In the 2D array, we don't want to check the same values twice in the other way around (nor itself), so pass. 
                 if (m_inputListOne[y] <= m_inputListOne[x])
                 {
                     continue;
