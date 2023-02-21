@@ -26,7 +26,7 @@ public class Task003
         }
     }
     
-    private string m_inputString = "'Wow!' said Goldilocks... 'Three bowls, three beds and three bears.'";
+    private string m_inputString = "Wow!! (said Goldilocks)... Three bowls, three beds for #3 bears.";
 
     private string ReverseWordOrderRetainPunctuation(string stringToReverse)
     {
@@ -37,14 +37,12 @@ public class Task003
         // Iterate on each word and collect punctuation data
         for (int wordCount = 0; wordCount < stringArray.Length; wordCount++)
         {
-            Console.WriteLine(stringArray[wordCount] + (wordCount+1));
-
+            var wordString = stringArray[wordCount];
+            
             // Iterate on each character basis
             for (int charCount = 0; charCount < stringArray[wordCount].Length; charCount++)
             {
-                var word = stringArray[wordCount];
-                
-                if (char.IsPunctuation(word[charCount]))
+                if (char.IsPunctuation(wordString[charCount]))
                 {
                     // If it's at the start of the word, then prepend, else it belongs at the end
                     PunctuationPosition _pos;
@@ -52,7 +50,7 @@ public class Task003
                     
                     var data = new PunctuationData
                     {
-                        punctuation = word[charCount],
+                        punctuation = wordString[charCount],
                         wordCount = wordCount,
                         pos = _pos
                     };
@@ -60,23 +58,52 @@ public class Task003
                     punctuationDatas.Add(data);
                 }
             }
-            
-            // Remove the punctuation
-            
-            
+        }
+
+        // Remove the punctuation
+            for (int i = 0; i < stringArray.Length; i++)
+            {
+                var word = stringArray[i];
+                var newWord = string.Empty;
+                for (int j = 0; j < stringArray[i].Length; j++)
+                {
+                    if (!char.IsPunctuation(word[j]))
+                    {
+                        newWord += word[j];
+                    }
+                }
+
+                stringArray[i] = newWord;
+            }
+
             // Flip the array order
             Array.Reverse(stringArray);
             
-            // Inject the punctuation back in precise order
-            
+            // Reinject the punctuation back in precise order
+            for (int i = 0; i < punctuationDatas.Count; i++)
+            {
+                string wordToEdit = stringArray[punctuationDatas[i].wordCount];
+                
+                switch (punctuationDatas[i].pos)
+                {
+                    case PunctuationPosition.BeforeWord:
+                        wordToEdit = punctuationDatas[i].punctuation + wordToEdit;
+                        break;
+                    
+                    case PunctuationPosition.AfterWord:
+                        wordToEdit += punctuationDatas[i].punctuation;
+                        break;
+                }
+                
+                stringArray[punctuationDatas[i].wordCount] = wordToEdit;
+            }
+
+            return string.Join(" ", stringArray);
         }
         
-        return stringArray.ToString();
-    }
-
     public void Main()
     {
         var result = ReverseWordOrderRetainPunctuation(m_inputString);
-        Console.WriteLine($"{m_inputString}\nbecomes...\n{result}");
+        Console.WriteLine($"- - - - -\n{m_inputString}\nbecomes...\n{result}\n- - - - -");
     }
 }
