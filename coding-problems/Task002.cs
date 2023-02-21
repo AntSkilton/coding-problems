@@ -6,31 +6,31 @@
 
 public class Task002
 {
-    private bool isDivBy3 = false;
-    private bool isDivBy5 = false;
+    private bool m_isDivBy3 = false;
+    private bool m_isDivBy5 = false;
     
     public void Main()
     {
         for (int i = 1; i <= 100; i++)
         {
             // Init the checks
-            isDivBy3 = false;
-            isDivBy5 = false;
+            m_isDivBy3 = false;
+            m_isDivBy5 = false;
 
             if (i % 3 == 0)
             {
-                isDivBy3 = true;
+                m_isDivBy3 = true;
             }
             
             if (i % 5 == 0)
             {
-                isDivBy5 = true;
+                m_isDivBy5 = true;
             }
             
             // Print handling
-            switch (isDivBy3)
+            switch (m_isDivBy3)
             {
-                case true when isDivBy5:
+                case true when m_isDivBy5:
                     Console.WriteLine("FizzBuzz");
                     continue;
                 case true:
@@ -38,7 +38,7 @@ public class Task002
                     continue;
             }
 
-            if (isDivBy5)
+            if (m_isDivBy5)
             {
                 Console.WriteLine("Buzz");
                 continue;
