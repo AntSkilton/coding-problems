@@ -1,2 +1,2 @@
 ﻿// Swap task for the latest console Main().
-new Task001().Main();
+new Task002().Main();
